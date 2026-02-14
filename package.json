@@ -1,0 +1,32 @@
+{
+  "name": "@openclaw-community/telegram-approval-buttons",
+  "version": "4.0.0",
+  "description": "Inline keyboard buttons for exec approval messages in Telegram — tap to approve/deny without typing commands",
+  "type": "module",
+  "main": "index.ts",
+  "license": "MIT",
+  "keywords": [
+    "openclaw",
+    "openclaw-plugin",
+    "telegram",
+    "approval",
+    "exec",
+    "inline-keyboard",
+    "buttons"
+  ],
+  "openclaw": {
+    "extensions": ["./index.ts"]
+  },
+  "author": "Jair (https://github.com/jairnx)",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jairnx/openclaw-telegram-approval-buttons"
+  },
+  "files": [
+    "index.ts",
+    "types.ts",
+    "lib/",
+    "openclaw.plugin.json",
+    "README.md"
+  ]
+}
