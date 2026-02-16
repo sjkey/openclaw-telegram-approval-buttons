@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #1a1d23;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            overflow: hidden;
+        }
+
+        .banner {
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            gap: 18px;
+            padding: 40px 50px 20px;
+            width: 100%;
+        }
+
+        .step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .img-container {
+            border-radius: 14px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+            overflow: hidden;
+            height: 520px;
+        }
+
+        .img-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: top;
+        }
+
+        .step-label {
+            color: #9ca3af;
+            font-size: 14px;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+        }
+
+        .arrow-wrap {
+            display: flex;
+            align-items: center;
+            height: 520px;
+        }
+
+        .arrow {
+            color: #4b5563;
+            font-size: 28px;
+            font-weight: 300;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="banner">
+        <div class="step">
+            <div class="img-container">
+                <img src="01-approval-request.png" alt="Approval Request">
+            </div>
+            <span class="step-label">1. Approval Request</span>
+        </div>
+        <div class="arrow-wrap"><span class="arrow">→</span></div>
+        <div class="step">
+            <div class="img-container">
+                <img src="02-approved-once.png" alt="Allowed once">
+            </div>
+            <span class="step-label">2. Allowed (once)</span>
+        </div>
+        <div class="arrow-wrap"><span class="arrow">→</span></div>
+        <div class="step">
+            <div class="img-container">
+                <img src="03-approval-status.png?v=4" alt="Health Check">
+            </div>
+            <span class="step-label">3. Health Check</span>
+        </div>
+    </div>
+</body>
+
+</html>
