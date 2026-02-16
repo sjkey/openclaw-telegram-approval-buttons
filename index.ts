@@ -30,7 +30,7 @@ import {
 
 // ── Constants ───────────────────────────────────────────────────────────────
 
-const PLUGIN_VERSION = "4.0.1";
+const PLUGIN_VERSION = "4.0.3";
 const TAG = "telegram-approval-buttons";
 
 // ── Plugin registration ─────────────────────────────────────────────────────
@@ -48,7 +48,7 @@ function register(api: any): void {
     {
       pluginConfig: pluginCfg,
       telegramChannelConfig: {
-        token: telegramCfg.token,
+        token: telegramCfg.token || telegramCfg.botToken,
         allowFrom: telegramCfg.allowFrom,
       },
       env: {
