@@ -48,7 +48,7 @@ Open your `openclaw.json` and add this block. If the `"plugins"` section already
 ```
 
 > 💡 **Replace `/path/to/`** with the actual path where you cloned the repo.  
-> Example: `"/home/jair/Projects/openclaw-telegram-approval-buttons"`
+> Example: `"~/Projects/openclaw-telegram-approval-buttons"`
 
 ### Step 3: Restart and verify
 
