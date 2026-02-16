@@ -25,7 +25,7 @@ export class ApprovalStore {
     private readonly staleTtlMs: number,
     private readonly log?: Logger,
     private readonly onExpired?: (entry: SentApproval) => void,
-  ) {}
+  ) { }
 
   // ── Lifecycle ─────────────────────────────────────────────────────────
 
@@ -38,7 +38,7 @@ export class ApprovalStore {
     this.cleanupTimer = setInterval(() => this.cleanStale(), interval);
     // Prevent the timer from keeping the process alive
     if (this.cleanupTimer && typeof this.cleanupTimer === "object" && "unref" in this.cleanupTimer) {
-      this.cleanupTimer.unref();
+      (this.cleanupTimer as NodeJS.Timeout).unref();
     }
   }
 
