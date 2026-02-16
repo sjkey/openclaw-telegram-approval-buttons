@@ -132,7 +132,7 @@ export function formatHealthCheck(health: {
 }): string {
   const uptimeMin = Math.floor(health.uptime / 60_000);
   const lines = [
-    `${health.ok ? "🟢" : "🔴"} <b>Approval Buttons Status</b>`,
+    `${health.ok ? "🟢" : "🔴"} Approval Buttons Status`,
     ``,
     `Config: chatId=${health.config.chatId ? "✓" : "✗"} · token=${health.config.botToken ? "✓" : "✗"}`,
   ];

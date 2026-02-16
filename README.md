@@ -2,17 +2,21 @@
 
 > One-tap `exec` approvals in Telegram — no more typing `/approve <uuid> allow-once`.
 
-<!-- ![Before and after](docs/before-after.png) -->
+## What does this look like?
+
+<p align="center">
+  <img src="docs/01-approval-request.png" width="280" alt="Approval request with inline buttons" />
+  <img src="docs/02-approved-once.png" width="280" alt="Approved (once) — buttons removed" />
+  <img src="docs/03-approval-status.png" width="280" alt="/approvalstatus health check" />
+</p>
+
+**Left:** Approval request with ✅ Allow Once · 🔏 Always · ❌ Deny buttons  
+**Center:** After tapping "Allow Once" — resolved, buttons removed  
+**Right:** `/approvalstatus` health check
 
 ## What does this do?
 
-OpenClaw's Discord has built-in approval buttons. **Telegram doesn't** — you're stuck typing long `/approve` commands. This plugin fixes that:
-
-| Without plugin | With plugin |
-|---|---|
-| Plain text approval message | Rich formatted message |
-| Type `/approve <uuid> allow-once` | Tap ✅ **Allow Once** |
-| Easy to miss in chat | Clear visual with inline buttons |
+OpenClaw's Discord has built-in approval buttons. **Telegram doesn't** — you're stuck typing long `/approve` commands. This plugin fixes that.
 
 **Features:**
 - ✅ **One-tap approvals** — Allow Once · 🔏 Always · ❌ Deny
