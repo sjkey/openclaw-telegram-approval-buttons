@@ -23,17 +23,12 @@ export function escapeHtml(text: string): string {
 export function formatApprovalRequest(info: ApprovalInfo): string {
   const e = escapeHtml;
   return [
-    `🔐 <b>Exec Approval Request</b>`,
-    ``,
-    `🤖 Agent: <b>${e(info.agent)}</b>`,
-    `🖥️ Host: <b>${e(info.host)}</b>`,
-    `📁 CWD: <code>${e(info.cwd)}</code>`,
+    `🔐 <b>Exec Approval</b>`,
     ``,
     `<pre>${e(info.command)}</pre>`,
     ``,
-    `🛡️ Security: ${e(info.security)}`,
-    `❓ Ask: ${e(info.ask)}`,
-    `⏱️ Expires: ${e(info.expires)}`,
+    `📁 <code>${e(info.cwd)}</code>`,
+    `🤖 ${e(info.agent)} · ⏱️ ${e(info.expires)}`,
     `🆔 <code>${e(info.id)}</code>`,
   ].join("\n");
 }
@@ -65,15 +60,11 @@ export function formatApprovalResolved(
   const label = ACTION_LABELS[action] ?? action;
 
   return [
-    `${icon} <b>Exec ${label}</b>`,
-    ``,
-    `🤖 Agent: <b>${e(info.agent)}</b>`,
-    `🖥️ Host: <b>${e(info.host)}</b>`,
-    `📁 CWD: <code>${e(info.cwd)}</code>`,
+    `${icon} <b>${label}</b>`,
     ``,
     `<pre>${e(info.command)}</pre>`,
     ``,
-    `🆔 <code>${e(info.id)}</code>`,
+    `🤖 ${e(info.agent)} · 🆔 <code>${e(info.id)}</code>`,
   ].join("\n");
 }
 
@@ -107,14 +98,11 @@ export function buildApprovalKeyboard(approvalId: string): object {
 export function formatApprovalExpired(info: ApprovalInfo): string {
   const e = escapeHtml;
   return [
-    `⏰ <b>Exec Approval Expired</b>`,
-    ``,
-    `🤖 Agent: <b>${e(info.agent)}</b>`,
-    `🖥️ Host: <b>${e(info.host)}</b>`,
+    `⏰ <b>Expired</b>`,
     ``,
     `<pre>${e(info.command)}</pre>`,
     ``,
-    `🆔 <code>${e(info.id)}</code>`,
+    `🤖 ${e(info.agent)} · 🆔 <code>${e(info.id)}</code>`,
   ].join("\n");
 }
 

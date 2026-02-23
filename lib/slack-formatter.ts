@@ -14,28 +14,19 @@ export function formatSlackApprovalRequest(info: ApprovalInfo): object[] {
   return [
     {
       type: "header",
-      text: { type: "plain_text", text: "Exec Approval Request", emoji: true },
+      text: { type: "plain_text", text: "Exec Approval", emoji: true },
     },
     {
       type: "section",
-      fields: [
-        { type: "mrkdwn", text: `*Agent:*\n${info.agent}` },
-        { type: "mrkdwn", text: `*Host:*\n${info.host}` },
-        { type: "mrkdwn", text: `*CWD:*\n\`${info.cwd}\`` },
-        { type: "mrkdwn", text: `*Security:*\n${info.security}` },
-        { type: "mrkdwn", text: `*Ask:*\n${info.ask}` },
-        { type: "mrkdwn", text: `*Expires:*\n${info.expires}` },
-      ],
-    },
-    {
-      type: "section",
-      text: { type: "mrkdwn", text: `*Command:*\n\`\`\`${info.command}\`\`\`` },
+      text: { type: "mrkdwn", text: `\`\`\`${info.command}\`\`\`` },
     },
     {
       type: "context",
-      elements: [{ type: "mrkdwn", text: `ID: \`${info.id}\`` }],
+      elements: [
+        { type: "mrkdwn", text: `${info.agent} · \`${info.cwd}\` · ${info.expires}` },
+        { type: "mrkdwn", text: `ID: \`${info.id}\`` },
+      ],
     },
-    { type: "divider" },
     ...buildSlackApprovalActions(info.id),
   ];
 }
@@ -101,23 +92,15 @@ export function formatSlackApprovalResolved(
   return [
     {
       type: "header",
-      text: { type: "plain_text", text: `Exec ${label}`, emoji: true },
+      text: { type: "plain_text", text: label, emoji: true },
     },
     {
       type: "section",
-      fields: [
-        { type: "mrkdwn", text: `*Agent:*\n${info.agent}` },
-        { type: "mrkdwn", text: `*Host:*\n${info.host}` },
-        { type: "mrkdwn", text: `*CWD:*\n\`${info.cwd}\`` },
-      ],
-    },
-    {
-      type: "section",
-      text: { type: "mrkdwn", text: `*Command:*\n\`\`\`${info.command}\`\`\`` },
+      text: { type: "mrkdwn", text: `\`\`\`${info.command}\`\`\`` },
     },
     {
       type: "context",
-      elements: [{ type: "mrkdwn", text: `${icon} ${label} · ID: \`${info.id}\`` }],
+      elements: [{ type: "mrkdwn", text: `${icon} ${info.agent} · ID: \`${info.id}\`` }],
     },
   ];
 }
@@ -131,22 +114,15 @@ export function formatSlackApprovalExpired(info: ApprovalInfo): object[] {
   return [
     {
       type: "header",
-      text: { type: "plain_text", text: "Exec Approval Expired", emoji: true },
+      text: { type: "plain_text", text: "Expired", emoji: true },
     },
     {
       type: "section",
-      fields: [
-        { type: "mrkdwn", text: `*Agent:*\n${info.agent}` },
-        { type: "mrkdwn", text: `*Host:*\n${info.host}` },
-      ],
-    },
-    {
-      type: "section",
-      text: { type: "mrkdwn", text: `*Command:*\n\`\`\`${info.command}\`\`\`` },
+      text: { type: "mrkdwn", text: `\`\`\`${info.command}\`\`\`` },
     },
     {
       type: "context",
-      elements: [{ type: "mrkdwn", text: `:clock1: Expired · ID: \`${info.id}\`` }],
+      elements: [{ type: "mrkdwn", text: `:clock1: ${info.agent} · ID: \`${info.id}\`` }],
     },
   ];
 }

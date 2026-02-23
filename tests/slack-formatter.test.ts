@@ -31,7 +31,7 @@ describe("formatSlackApprovalRequest", () => {
         const blocks = formatSlackApprovalRequest(sampleInfo) as any[];
         const header = blocks.find((b) => b.type === "header");
         expect(header).toBeDefined();
-        expect(header.text.text).toContain("Exec Approval Request");
+        expect(header.text.text).toContain("Exec Approval");
     });
 
     it("includes an actions block with 3 buttons", () => {
@@ -73,6 +73,14 @@ describe("formatSlackApprovalRequest", () => {
         const text = ctx.elements.map((e: any) => e.text).join(" ");
         expect(text).toContain(sampleInfo.id);
     });
+
+    it("does not include unnecessary internal fields", () => {
+        const blocks = formatSlackApprovalRequest(sampleInfo) as any[];
+        const allText = JSON.stringify(blocks);
+        expect(allText).not.toContain("Security");
+        expect(allText).not.toContain("Host");
+        expect(allText).not.toContain("*Ask:*");
+    });
 });
 
 // ─── formatSlackApprovalResolved ────────────────────────────────────────────
@@ -109,7 +117,7 @@ describe("formatSlackApprovalExpired", () => {
     it("shows expiry header", () => {
         const blocks = formatSlackApprovalExpired(sampleInfo) as any[];
         const header = blocks.find((b) => b.type === "header");
-        expect(header.text.text).toContain("Expired");
+        expect(header.text.text).toBe("Expired");
     });
 
     it("does not include an actions block", () => {
