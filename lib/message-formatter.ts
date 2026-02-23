@@ -121,12 +121,13 @@ export function formatApprovalExpired(info: ApprovalInfo): string {
 // ─── Health / diagnostics format ────────────────────────────────────────────
 
 /**
- * Format a health check result for display in Telegram.
+ * Format a health check result for display.
  */
 export function formatHealthCheck(health: {
   ok: boolean;
-  config: { chatId: boolean; botToken: boolean };
+  config: { telegramChatId: boolean; telegramToken: boolean; slackToken: boolean; slackChannel: boolean };
   telegram: { reachable: boolean; botUsername?: string; error?: string };
+  slack: { reachable: boolean; teamName?: string; error?: string };
   store: { pending: number; totalProcessed: number };
   uptime: number;
 }): string {
@@ -134,16 +135,36 @@ export function formatHealthCheck(health: {
   const lines = [
     `${health.ok ? "🟢" : "🔴"} Approval Buttons Status`,
     ``,
-    `Config: chatId=${health.config.chatId ? "✓" : "✗"} · token=${health.config.botToken ? "✓" : "✗"}`,
   ];
 
-  if (health.telegram.reachable) {
-    lines.push(`Telegram: ✓ connected (@${health.telegram.botUsername ?? "?"})`);
+  // Telegram status
+  const tgConfigured = health.config.telegramChatId && health.config.telegramToken;
+  if (tgConfigured) {
+    lines.push(`Telegram: chatId=${health.config.telegramChatId ? "✓" : "✗"} · token=${health.config.telegramToken ? "✓" : "✗"}`);
+    if (health.telegram.reachable) {
+      lines.push(`  ✓ connected (@${health.telegram.botUsername ?? "?"})`);
+    } else {
+      lines.push(`  ✗ ${health.telegram.error ?? "unreachable"}`);
+    }
   } else {
-    lines.push(`Telegram: ✗ ${health.telegram.error ?? "unreachable"}`);
+    lines.push(`Telegram: not configured`);
+  }
+
+  // Slack status
+  const slackConfigured = health.config.slackToken && health.config.slackChannel;
+  if (slackConfigured) {
+    lines.push(`Slack: token=${health.config.slackToken ? "✓" : "✗"} · channel=${health.config.slackChannel ? "✓" : "✗"}`);
+    if (health.slack.reachable) {
+      lines.push(`  ✓ connected (${health.slack.teamName ?? "?"})`);
+    } else {
+      lines.push(`  ✗ ${health.slack.error ?? "unreachable"}`);
+    }
+  } else {
+    lines.push(`Slack: not configured`);
   }
 
   lines.push(
+    ``,
     `Pending: ${health.store.pending} · Processed: ${health.store.totalProcessed}`,
     `Uptime: ${uptimeMin}m`,
   );

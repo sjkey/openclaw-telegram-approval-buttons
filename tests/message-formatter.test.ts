@@ -148,8 +148,9 @@ describe("formatHealthCheck", () => {
     it("shows green circle when healthy", () => {
         const text = formatHealthCheck({
             ok: true,
-            config: { chatId: true, botToken: true },
+            config: { telegramChatId: true, telegramToken: true, slackToken: false, slackChannel: false },
             telegram: { reachable: true, botUsername: "test_bot" },
+            slack: { reachable: false, error: "not configured" },
             store: { pending: 0, totalProcessed: 5 },
             uptime: 180_000,
         });
@@ -162,21 +163,36 @@ describe("formatHealthCheck", () => {
     it("shows red circle when unhealthy", () => {
         const text = formatHealthCheck({
             ok: false,
-            config: { chatId: false, botToken: true },
+            config: { telegramChatId: true, telegramToken: true, slackToken: false, slackChannel: false },
             telegram: { reachable: false, error: "timeout" },
+            slack: { reachable: false, error: "not configured" },
             store: { pending: 2, totalProcessed: 0 },
             uptime: 60_000,
         });
         expect(text).toContain("🔴");
-        expect(text).toContain("✗");
         expect(text).toContain("timeout");
+    });
+
+    it("shows slack status when configured", () => {
+        const text = formatHealthCheck({
+            ok: true,
+            config: { telegramChatId: false, telegramToken: false, slackToken: true, slackChannel: true },
+            telegram: { reachable: false, error: "not configured" },
+            slack: { reachable: true, teamName: "My Team" },
+            store: { pending: 1, totalProcessed: 3 },
+            uptime: 120_000,
+        });
+        expect(text).toContain("🟢");
+        expect(text).toContain("My Team");
+        expect(text).toContain("Slack:");
     });
 
     it("does not contain raw HTML tags", () => {
         const text = formatHealthCheck({
             ok: true,
-            config: { chatId: true, botToken: true },
+            config: { telegramChatId: true, telegramToken: true, slackToken: false, slackChannel: false },
             telegram: { reachable: true, botUsername: "bot" },
+            slack: { reachable: false },
             store: { pending: 0, totalProcessed: 0 },
             uptime: 0,
         });
